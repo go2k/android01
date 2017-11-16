@@ -12,6 +12,7 @@ public class MainActivity extends Activity {
     private TextView tvNachricht;
     private Button btnWeiterFertig;
     private EditText etEingabe;
+    private Boolean ersterklick;
 
 
     @Override
@@ -20,6 +21,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         tvNachricht = findViewById(R.id.tv_nachricht);
         btnWeiterFertig = findViewById(R.id.btn_weiter_fertig);
+        ersterklick = true;
         etEingabe = findViewById(R.id.et_eingabe);
 
         tvNachricht.setText(R.string.willkommen);
@@ -28,7 +30,14 @@ public class MainActivity extends Activity {
         btnWeiterFertig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tvNachricht.setText(getString(R.string.hallo, etEingabe.getText()));
+                if (ersterklick) {
+                    tvNachricht.setText(getString(R.string.hallo, etEingabe.getText()));
+                    etEingabe.setVisibility(View.INVISIBLE);
+                    btnWeiterFertig.setText(R.string.fertig);
+                    ersterklick = false;
+                } else {
+                    finish();
+                }
             }
         });
 
